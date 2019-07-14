@@ -88,7 +88,7 @@ func (co *SignalContext) Error(err error) bool {
 	}
 }
 
-func (co *SignalContext) Exit(err error) error {
+func (co *SignalContext) Fatal(err error) error {
 	if co.IsDone() {
 		return co.Err()
 	}
@@ -101,6 +101,10 @@ func (co *SignalContext) Exit(err error) error {
 	case <-co.ctx.Done():
 		return co.Err()
 	}
+}
+
+func (co *SignalContext) Exit(err error) error {
+	return co.Fatal(err)
 }
 
 type ObjectContext struct {
@@ -188,7 +192,7 @@ func (co *ErrorContext) Error(err error) bool {
 	}
 }
 
-func (co *ErrorContext) Exit(err error) error {
+func (co *ErrorContext) Fatal(err error) error {
 	if co.IsDone() {
 		return co.Err()
 	}
@@ -201,4 +205,8 @@ func (co *ErrorContext) Exit(err error) error {
 	case <-co.ctx.Done():
 		return co.Err()
 	}
+}
+
+func (co *ErrorContext) Exit(err error) error {
+	return co.Fatal(err)
 }
