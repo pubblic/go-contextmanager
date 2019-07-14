@@ -55,9 +55,9 @@ func (co *SignalContext) Err() error {
 func (co *SignalContext) IsDone() bool {
 	select {
 	case <-co.ctx.Done():
-		return false
-	default:
 		return true
+	default:
+		return false
 	}
 }
 
@@ -126,9 +126,9 @@ func (co *ObjectContext) Err() error {
 func (co *ObjectContext) IsDone() bool {
 	select {
 	case <-co.ctx.Done():
-		return false
-	default:
 		return true
+	default:
+		return false
 	}
 }
 
